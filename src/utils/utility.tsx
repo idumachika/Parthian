@@ -10,9 +10,10 @@ export const validateAmount = (input: string): boolean => {
    return !isNaN(amount) && amount >= 100 && amount <= 10000000;
 };
  
- export const validateAccountNumber =(accountNumber) => {
-  // Check if accountNumber is a string with exactly 10 digits
-  return /^[0-9]{10}$/.test(accountNumber);
-}
+ export const validateAccountNumber = (accountNumber: string): boolean => {
+   // Check if accountNumber is a string with exactly 10 digits
+   return /^[0-9]{10}$/.test(accountNumber);
+ };
+
 
 
