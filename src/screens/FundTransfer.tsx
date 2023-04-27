@@ -11,10 +11,19 @@ import RNPickerSelect from '../components/dropDownPicker';
 import {
   generateRandom,
   validateAmount,
-  validateAccountNumber,
+  
 } from '../utils/utility';
 
-const FundTransfer = ({navigation}: any) => {
+interface Bank {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  bankMap: Bank[];
+}
+
+const FundTransfer: React.FC<Props> = ({bankMap}) => {
   const [fundTransfer, result] = useFundTransferMutation();
   const {data, isLoading: loadBankDetail, error} = useGetBanksQuery('');
   const [accountVerification, response] = useAccountVerificationMutation();
@@ -139,14 +148,14 @@ const FundTransfer = ({navigation}: any) => {
           </View>
         ) : (
           <View style={styles.container}>
-            {data?.data.length > 0 && (
+            {bankMap.length > 0 && (
               <RNPickerSelect
                 placeholder={{
                   label: '-- Select Bank --',
                   value: '......',
                 }}
                 items={bankMap}
-                onValueChange={(account_bank: React.SetStateAction<never[]>) =>
+                onValueChange={(account_bank: string) =>
                   updateNewItem({label: 'account_bank', value: account_bank})
                 }
                 value={account_bank}
