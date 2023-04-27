@@ -21,7 +21,7 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Transfer">
-        <Stack.Screen name="Transfer" component={MyTabs} />
+        <Stack.Screen name="Transfers" component={MyTabs} />
         <Stack.Screen name="PaymentDetails" component={ViewPaymentDetails} />
       </Stack.Navigator>
     </NavigationContainer>

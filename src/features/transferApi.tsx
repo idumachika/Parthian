@@ -49,9 +49,25 @@ export const transferApi = createApi({
         },
       }),
     }),
+
+    accountVerification: builder.mutation({
+      query: payload => ({
+        url: 'accounts/resolve',
+        method: 'POST',
+        body: payload,
+        headers: {
+          Authorization: 'Bearer FLWSECK_TEST-SANDBOXDEMOKEY-X',
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
   }),
 });
 
 export const {
- useFundTransferMutation , useGetBanksQuery, useGetAllPaymentQuery, useGetAllPaymentByIDQuery
+  useFundTransferMutation,
+  useGetBanksQuery,
+  useGetAllPaymentQuery,
+  useGetAllPaymentByIDQuery,
+  useAccountVerificationMutation
 } = transferApi;
