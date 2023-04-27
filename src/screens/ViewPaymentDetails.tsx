@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import {useGetAllPaymentByIDQuery} from '../features/transferApi';
 import PaymentDetails from '../components/PaymentDetails';
 
@@ -33,18 +27,27 @@ type Props = {
   };
 };
 
-const ViewPaymentDetails: React.FC = ({navigation}: any) => {
+const ViewPaymentDetails: React.FC = ({navigation, route}: any) => {
+  const {id} = route?.params;
+
   const {
     data: paymentDetail,
     isLoading: loadPaymentDetail,
     error,
-  } = useGetAllPaymentByIDQuery('');
-  console.log('data', paymentDetail);
-
+  } = useGetAllPaymentByIDQuery(id);
+  const {data} = paymentDetail;
+  console.log('data======', data.data);
 
   return (
     <View style={styles.container}>
-      <Text>paymentDetails</Text>
+      <Text style={styles.title}>Summary Screen</Text>
+      {/* <View style={styles.summaryContainer}>
+        <Text style={styles.summaryText}>
+          Account Number: {data?.account_number}
+        </Text>
+        <Text style={styles.summaryText}>Amount: {data?.amount}</Text>
+        <Text style={styles.summaryText}>Fee: {data?.fee}</Text>
+      </View> */}
     </View>
   );
 };
@@ -52,15 +55,22 @@ const ViewPaymentDetails: React.FC = ({navigation}: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    paddingHorizontal: 10,
-    borderRadius: 15,
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  summaryContainer: {
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 10,
+  },
+  summaryText: {
+    fontSize: 18,
+    marginBottom: 10,
   },
 });
 export default ViewPaymentDetails;

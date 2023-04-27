@@ -1,10 +1,13 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
 import {
-  useGetAllPaymentQuery,
-} from '../features/transferApi';
-import PaymentDetails from '../components/PaymentDetails'
-
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
+import {useGetAllPaymentQuery} from '../features/transferApi';
+import PaymentDetails from '../components/PaymentDetails';
 
 type Item = {
   account_number: string;
@@ -30,49 +33,45 @@ type Props = {
   };
 };
 
-const ViewPayment: React.FC = ({ navigation }: any) => {
+const ViewPayment: React.FC = ({navigation}: any) => {
   const {
     data: paymentDetail,
     isLoading: loadPaymentDetail,
     error,
   } = useGetAllPaymentQuery('');
-    console.log('data', paymentDetail);
 
-     const navigateToScreen = (inventory: any) => {
-       navigation.navigate(
-         'Inventory Detail' as never,
-         {id: inventory.id} as never,
-       );
-     };
-    
-     const renderPaymentDetails = () => {
-       return (
-         <FlatList
-           data={paymentDetail?.data}
-           r={
-             <View>
-               <Text style={{color: '#333', fontSize: 24}}>
-                 No Payment Found
-               </Text>
-             </View>
-           }
-           renderItem={({item}) => (
-             <PaymentDetails
-               onPress={() => navigateToScreen(item)}
-               item={item}
-             />
-           )}
-           keyExtractor={item => item.id}
-         />
-       );
-     };
+  const navigateToScreen = (payment: any) => {
+    navigation.navigate('PaymentDetails' as never, {id: payment.id} as never);
+  };
+
+  const renderPaymentDetails = () => {
+    return (
+      <FlatList
+        data={paymentDetail?.data}
+        ListEmptyComponent={
+          <View>
+            <Text style={{color: '#333', fontSize: 24}}>No Payment Found</Text>
+          </View>
+        }
+        renderItem={({item}) => (
+          <PaymentDetails onPress={() => navigateToScreen(item)} item={item} />
+        )}
+        keyExtractor={item => item.id}
+      />
+    );
+  };
 
   return (
     <View style={styles.container}>
-      {loadPaymentDetail ?<View style={styles.loader}>
-        <ActivityIndicator size={30} color="#000" />
-      </View> : renderPaymentDetails()
-  }</View>);
+      {loadPaymentDetail ? (
+        <View style={styles.loader}>
+          <ActivityIndicator size={30} color="#000" />
+        </View>
+      ) : (
+        renderPaymentDetails()
+      )}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -86,8 +85,7 @@ const styles = StyleSheet.create({
   loader: {
     flex: 1,
     justifyContent: 'center',
-    alignItems:'center',
-  }
- 
+    alignItems: 'center',
+  },
 });
 export default ViewPayment;

@@ -60,16 +60,18 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: '#007aff',
     padding: 20,
-    marginVertical: 8,
+    marginVertical: 10,
   },
   name: {
     fontWeight: 'bold',
-    fontSize: 20,
-    color: '#000',
+    fontSize: 18,
+    marginVertical: 10,
+
+    // color: '#000',
   },
   text: {
     fontSize: 16,
-    color: '#000',
+    // color: '#000',
   },
 });
 

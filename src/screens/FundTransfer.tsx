@@ -12,9 +12,7 @@ import {generateRandom, validateAmount} from '../utils/utility';
 const FundTransfer = ({navigation}: any) => {
   const [fundTransfer, result] = useFundTransferMutation();
   const {data, isLoading: loadBankDetail, error} = useGetBanksQuery('');
-  console.log('data=====', data);
   const {data: finalGetandSubmit, isLoading: submitTransferLoading} = result;
-  console.log('finalGetandSubmit', finalGetandSubmit);
   const [transferItem, setTransferItem] = useState({
     account_bank: '',
     account_number: '',
@@ -64,7 +62,12 @@ const FundTransfer = ({navigation}: any) => {
     try {
       fundTransfer(transferItem)
         .then(res => {
-          console.log(res);
+          const { data } = res
+          if (data.status === 'success') {
+             Alert.alert("success", "Transfer Successful")
+          } else {
+            Alert.alert('fail', 'Transfer Failed');
+          }
         })
         .then(error => {
           console.log(error);
