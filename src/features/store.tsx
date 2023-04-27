@@ -12,7 +12,6 @@ export const store = configureStore({
   reducer: {
     [transferApi.reducerPath]: transferApi.reducer,
     transfer: persistReducer(persistConfig, transferReducer),
-    // transfer: transferReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({serializableCheck: false}).concat(

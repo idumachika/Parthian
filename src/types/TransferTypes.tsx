@@ -11,9 +11,9 @@ export type FundTransferType = {
 
 
 export type BankType = {
-  strMeal: string;
-  strMealThumb: string;
-  idMeal: string;
+  account_bank: string;
+  account_number: string;
+  amount: string;
 };
 
 export type Banks = {

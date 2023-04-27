@@ -35,19 +35,28 @@ const ViewPaymentDetails: React.FC = ({navigation, route}: any) => {
     isLoading: loadPaymentDetail,
     error,
   } = useGetAllPaymentByIDQuery(id);
-  const {data} = paymentDetail;
-  console.log('data======', data.data);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Summary Screen</Text>
-      {/* <View style={styles.summaryContainer}>
-        <Text style={styles.summaryText}>
-          Account Number: {data?.account_number}
-        </Text>
-        <Text style={styles.summaryText}>Amount: {data?.amount}</Text>
-        <Text style={styles.summaryText}>Fee: {data?.fee}</Text>
-      </View> */}
+      <Text style={styles.title}>Payment Details</Text>
+      {loadPaymentDetail ? (
+        <View style={styles.loader}>
+          <ActivityIndicator size={30} color={'black'} />
+        </View>
+      ) : (
+        <View style={styles.summaryContainer}>
+          {Object.keys(paymentDetail?.data).map((ky, i) => {
+            return (
+              <View key={i} style={styles.summaryContent}>
+                <Text style={styles.summaryTextRight}>{ky}</Text>
+                <Text style={styles.summaryTextLeft}>
+                  {paymentDetail?.data[ky]}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+      )}
     </View>
   );
 };
@@ -55,8 +64,7 @@ const ViewPaymentDetails: React.FC = ({navigation, route}: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    
   },
   title: {
     fontSize: 24,
@@ -64,13 +72,30 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   summaryContainer: {
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
+    flex: 1,
+    marginTop: 20,
   },
-  summaryText: {
-    fontSize: 18,
-    marginBottom: 10,
+  summaryContent: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    justifyContent: 'space-between',
+    borderRadius: 8,
+  },
+  summaryTextRight: {
+    fontSize: 14,
+    marginRight: 10,
+    flex: 1.5,
+  },
+  summaryTextLeft: {
+      fontSize: 14,
+      flex: 1,
+      textAlign: 'left',
+  },
+
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default ViewPaymentDetails;

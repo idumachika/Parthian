@@ -49,7 +49,7 @@ const ViewPayment: React.FC = ({navigation}: any) => {
       <FlatList
         data={paymentDetail?.data}
         ListEmptyComponent={
-          <View>
+          <View style={styles.emptyComponent}>
             <Text style={{color: '#333', fontSize: 24}}>No Payment Found</Text>
           </View>
         }
@@ -87,5 +87,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  emptyComponent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems:'center',
+  }
 });
 export default ViewPayment;
