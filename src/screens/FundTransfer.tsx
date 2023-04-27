@@ -21,9 +21,22 @@ interface Bank {
 
 interface Props {
   bankMap: Bank[];
+  data: {
+    data: Account[];
+  } | null;
+  accountValidationLoadng: boolean;
+  loadBankDetail: boolean;
+  updateNewItem: (obj: {label: string; value: string}) => void;
+  account_bank: string;
+  account_number: string;
+  amount: string;
+  narration: string;
+  accountName: string | null;
+  handleSubmit: () => void;
+  submitTransferLoading: boolean;
 }
 
-const FundTransfer: React.FC<Props> = ({bankMap}) => {
+const FundTransfer: React.FC<Props> = ({}) => {
   const [fundTransfer, result] = useFundTransferMutation();
   const {data, isLoading: loadBankDetail, error} = useGetBanksQuery('');
   const [accountVerification, response] = useAccountVerificationMutation();
