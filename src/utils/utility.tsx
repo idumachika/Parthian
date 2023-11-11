@@ -16,4 +16,13 @@ export const validateAmount = (input: string): boolean => {
  };
 
 
+export const debounce = (delay: string , fn) => {
+  let inDebounce = null;
+  return (...args: any[]) => {
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => fn(...args), delay);
+  };
+};
+
+
 

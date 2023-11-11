@@ -2,17 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, TouchableWithoutFeedback} from 'react-native';
 import {View, StyleSheet, TextInput, Keyboard, Alert} from 'react-native';
 import CustomButton from '../components/CustomButton';
+import {useSelector} from 'react-redux';
 import {
   useFundTransferMutation,
   useGetBanksQuery,
   useAccountVerificationMutation,
 } from '../features/transferApi';
 import RNPickerSelect from '../components/dropDownPicker';
-import {
-  generateRandom,
-  validateAmount,
-  
-} from '../utils/utility';
+import {generateRandom, validateAmount} from '../utils/utility';
 
 interface Bank {
   label: string;
@@ -40,6 +37,7 @@ const FundTransfer: React.FC<Props> = ({}) => {
   const [fundTransfer, result] = useFundTransferMutation();
   const {data, isLoading: loadBankDetail, error} = useGetBanksQuery('');
   const [accountVerification, response] = useAccountVerificationMutation();
+
   const {isLoading: accountValidationLoadng} = response;
   const {isLoading: submitTransferLoading} = result;
   const [accountName, setAccountName] = useState('');
@@ -53,6 +51,8 @@ const FundTransfer: React.FC<Props> = ({}) => {
     callback_url: '',
     debit_currency: '',
   });
+  const user = useSelector(state => state);
+  console.log('=======', user.user);
 
   type NewItemType = {
     label: keyof typeof transferItem;
@@ -144,7 +144,7 @@ const FundTransfer: React.FC<Props> = ({}) => {
       <View style={styles.accountLoader}>
         <ActivityIndicator size={30} color={'black'} />
       </View>
-    ); 
+    );
   }
 
   return (
@@ -161,7 +161,7 @@ const FundTransfer: React.FC<Props> = ({}) => {
           </View>
         ) : (
           <View style={styles.container}>
-            {bankMap.length > 0 && (
+            {/* {bankMap.length > 0 && (
               <RNPickerSelect
                 placeholder={{
                   label: '-- Select Bank --',
@@ -173,7 +173,7 @@ const FundTransfer: React.FC<Props> = ({}) => {
                 }
                 value={account_bank}
               />
-            )}
+            )} */}
 
             <TextInput
               style={[styles.input, styles.total]}

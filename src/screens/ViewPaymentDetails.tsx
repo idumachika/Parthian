@@ -1,8 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import {useGetAllPaymentByIDQuery} from '../features/transferApi';
-import PaymentDetails from '../components/PaymentDetails';
-
 type Item = {
   account_number: string;
   bank_code: string;
